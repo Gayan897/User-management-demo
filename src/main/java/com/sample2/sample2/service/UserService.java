@@ -22,6 +22,21 @@ public class UserService {
 
     public List<UserDTO> getAllUsers(){
         List<User>userList = userRepository.findAll();
-        return modelMapper.map(userList, new TypeToken<UserDTO>(){}.getType());
+        return modelMapper.map(userList, new TypeToken<List<UserDTO>>(){}.getType());
+    }
+
+    public String saveUser(UserDTO userDTO){
+        userRepository.save(modelMapper.map(userDTO, User.class));
+        return "User save succcessfully";
+    }
+
+    public String updateUser(UserDTO userDTO){ // we can either use UserDTO as a data type
+        userRepository.save(modelMapper.map(userDTO, User.class));
+        return "User update successfully"; // instead of this message we can pass the whatever values we entered ex: return UserDTO;
+    }
+
+    public String deleteUser(UserDTO userDTO) {
+        userRepository.delete(modelMapper.map(userDTO, User.class));
+        return "User Deleted";
     }
 }
